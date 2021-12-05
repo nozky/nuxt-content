@@ -6,12 +6,14 @@
       <input type="text" id="search" v-model="searchStr">
       <button @click="filterBlog(searchStr)">Search</button>
     </form>
-    <button @click="fetchBlog">Get blog</button>
+    
     <div class="blog-container">
-      <ul>
-        <li v-for="blog in blogs" :key="blog.slug">
-          <nuxt-link :to="`/blog/${blog.slug}`"><h3>{{ blog.title }}</h3></nuxt-link>
-          <p>{{ blog.description }}</p>
+      <ul v-for="blog in blogs" :key="blog.slug">
+        <li>
+          <h3>
+            <nuxt-link :to="`/blog/${blog.slug}`">{{ blog.title }}</nuxt-link>
+            <p>{{ blog.description }}</p>
+          </h3>
         </li>
       </ul>
     </div>
@@ -19,35 +21,32 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  mounted: function(){
-    this.fetchBlog()
+
+  async asyncData({$content, params}){
+    const docs = await $content('blog').fetch()
+    return { docs }
   },
-  components: {},
+
+  mounted() {
+    this.blogs = this.docs
+  },
 
   data(){
-    return{
-      //key: value 
-      msg: 'Hello nuxt.js',
-      blogs: null,
-      searchStr: null
-    }
+      return{
+        //key: value 
+        msg: 'Hello nuxt.js',
+        blogs: null,
+        searchStr: null
+      }
   },
 
   methods: {
-    fetchBlog: async function(){
-      const response = await axios({
-        url: '/_content/blog',
-        method: 'GET',
-      })
-      this.blogs = response.data
-    },
-    filterBlog: function(searchStr){
+     filterBlog: function(searchStr){
       let regEx = new RegExp(searchStr,'gi')
-      this.blogs = this.blogs.filter( blog => String(blog.title).match(regEx))
+      this.blogs =  this.blogs.filter( blog => String(blog.title).match(regEx))
     }
-  }
+  },
 }
 </script>
 
