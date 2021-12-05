@@ -3,7 +3,7 @@
    <h1>Blog post</h1>
    <hr>
    <nuxt-content :document="doc" />
-   <nuxt-link to="/">Home</nuxt-link>
+   <nuxtLink to="/"><p class="back">Back</p></nuxtLink>
   </div>
 
 </template>
@@ -29,6 +29,16 @@ export default {
 
   hr{
     width: 100%;
+  }
+
+  .back{
+    border: 1px solid gray;
+    padding: 0.2rem;
+    color: blue;
+  }
+
+  a{
+    text-decoration: none;
   }
 
 

@@ -3,17 +3,13 @@
     <MainHeader class="main-header" :msg="msg" />
     <form v-on:submit.prevent> 
       <label for="search">Search</label>
-      <input type="text" id="search" v-model="searchStr">
-      <button @click="filterBlog(searchStr)">Search</button>
+      <input type="text" id="search" v-model="searchStr" @keyup="filterBlog(searchStr)"/>
     </form>
     
     <div class="blog-container">
-      <ul v-for="blog in blogs" :key="blog.slug">
+      <ul v-for="blog in filteredBlogs" :key="blog.slug">
         <li>
-          <h3>
-            <nuxt-link :to="`/blog/${blog.slug}`">{{ blog.title }}</nuxt-link>
-            <p>{{ blog.description }}</p>
-          </h3>
+          <BlogItem :blog="blog" /> 
         </li>
       </ul>
     </div>
@@ -37,6 +33,7 @@ export default {
 
   mounted() {
     this.blogs = this.docs
+    this.filteredBlogs = this.blogs //initialize when mounted
   },
 
   data(){
@@ -44,14 +41,18 @@ export default {
         //key: value 
         msg: 'Welcome to my blog',
         blogs: null,
-        searchStr: null
+        searchStr: null,
+        filteredBlogs: null
       }
   },
 
   methods: {
      filterBlog: function(searchStr){
       let regEx = new RegExp(searchStr,'gi')
-      this.blogs =  this.blogs.filter( blog => String(blog.title).match(regEx))
+      this.filteredBlogs =  this.blogs.filter( blog => String(blog.title).match(regEx))
+    },
+    textChangeHandler: function(e){
+      console.log(e.target.value)
     }
   },
 }
@@ -68,23 +69,32 @@ export default {
   }
 
   form{
-    padding: 1rem;
+    padding: 0.5rem;
     margin: 1rem;
   }
 
   input, label{
     width: 15ch;
     padding: 0.5rem;
-    margin: 1rem;
-    border-radius: 1px;
+    border-radius: 5px;
     cursor: pointer;
+    outline: none;
   }
 
   button{
-    width: 15ch;
+    width: 10ch;
     padding: 0.5rem;
     margin: 1rem;
-    border-radius: 1px;
+    border-radius: 5px;
     cursor: pointer;
   }
+
+  li{
+    list-style: none;
+    padding: 1rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
+
+
 </style>
