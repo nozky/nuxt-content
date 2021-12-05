@@ -38,8 +38,8 @@ export default {
   methods: {
     fetchBlog: async function(){
       const response = await axios({
-        url: 'http://localhost:3000/_content/blog',
-        method: 'GET'
+        url: '_content/blog',
+        method: 'GET',
       })
       this.blogs = response.data
     },
