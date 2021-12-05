@@ -7,8 +7,8 @@
     </form>
     
     <div class="blog-container">
-      <ul v-for="blog in filteredBlogs" :key="blog.slug">
-        <li>
+      <ul>
+        <li v-for="blog in filteredBlogs" :key="blog.slug">
           <BlogItem :blog="blog" /> 
         </li>
       </ul>
