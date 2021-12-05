@@ -16,6 +16,12 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {
+        src: 'script/identify.js',
+        body: true,
+      }
     ]
   },
 

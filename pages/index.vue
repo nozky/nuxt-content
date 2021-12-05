@@ -23,6 +23,12 @@
 <script>
 export default {
 
+  head(){
+    return{
+      script: [{ src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }],
+    }
+  },
+
   async asyncData({$content, params}){
     const docs = await $content('blog').fetch()
     return { docs }
@@ -35,7 +41,7 @@ export default {
   data(){
       return{
         //key: value 
-        msg: 'Hello nuxt.js',
+        msg: 'Welcome to my blog',
         blogs: null,
         searchStr: null
       }
