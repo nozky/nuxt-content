@@ -11,7 +11,13 @@
       <p>
       <span>{{ blog.date }}</span> <br>
       <span>{{ blog.author }}</span> <br>
-      <span>{{ blog.description }}</span>
+      <span>{{ blog.description }}</span> <br>
+      <div class="stars-container">
+        <p>Rating: </p>
+        <ul class="stars">
+          <li v-for="star in blog.rating" :key="star">⭐️</li> 
+        </ul>
+      </div>
     </p>
     </nuxtLink>
    </div>
@@ -47,5 +53,17 @@ export default {
 
   img{
     width: 100%;
+  }
+
+  .stars-container{
+    display: flex;
+    align-items: center;
+  }
+
+  .stars-container .stars{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 0.3rem;
   }
 </style>
