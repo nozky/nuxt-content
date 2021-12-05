@@ -31,6 +31,7 @@ export default {
 
   async asyncData({$content, params}){
     const docs = await $content('blog').fetch()
+    console.log( docs )
     return { docs }
   },
 
