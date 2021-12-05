@@ -38,7 +38,7 @@ export default {
   methods: {
     fetchBlog: async function(){
       const response = await axios({
-        url: '_content/blog',
+        url: '/_content/blog',
         method: 'GET',
       })
       this.blogs = response.data
